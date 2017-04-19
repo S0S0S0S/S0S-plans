@@ -72,6 +72,7 @@ class GetCookie(object):
                 browser = webdriver.PhantomJS()
                 wait = ui.WebDriverWait(browser, 10)
                 browser.get('http://qzone.qq.com/?s_url=http://user.qzone.qq.com/1813710279/')
+                #browser.get('http://qzone.qq.com/')
                 browser.switch_to_frame('login_frame')
                 wait.until(lambda browser: browser.find_element_by_id('switcher_plogin'))
                 plogin = browser.find_element_by_id('switcher_plogin')

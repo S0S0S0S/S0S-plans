@@ -1,6 +1,6 @@
 # coding=utf-8
 import datetime
-import BitVector
+# import BitVector
 import public_methods
 
 
@@ -10,12 +10,13 @@ class InitMessages(object):
     def __init__(self):
         self.myheader = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:39.0) Gecko/20100101 Firefox/39.0',
                          'Referer': 'http://ctc.qzs.qq.com/qzone/newblog/blogcanvas.html'}  # 表头信息
-        self.thread_num_QQ = 3  # 同时下载几个QQ的日志，每个QQ的访问使用不同的cookie登录
+        self.thread_num_QQ = 1  # 同时下载几个QQ的日志，每个QQ的访问使用不同的cookie登录
         self.thread_num_Blog = 2  # 同时下载QQ的几篇日志
         self.thread_num_Mood = 6  # 同时下载QQ的几条说说
         self.blog_after_date = datetime.datetime.strptime("2014-01-01", "%Y-%m-%d")  # 爬这个时间之后的日志
         self.mood_after_date = datetime.datetime.strptime("2015-01-01", "%Y-%m-%d")  # 爬这个时间之后的说说
-        self.my_qq = self.readMyQQ()  # 我的QQ列表，用来登录
+        self.my_qq = [{'psw': 'woaini6690699', 'no': '573394329'}]
+        #self.my_qq = self.readMyQQ()  # 我的QQ列表，用来登录
         self.qq_for_spide = self.readQQ("QQForSpider.txt")  # 待爬QQ列表
         self.qq_for_spide_num = len(self.qq_for_spide)  # 待爬QQ数量
         self.qq_had_spided = self.readQQ("QQHadSpided.txt")  # 已爬QQ列表
@@ -25,9 +26,12 @@ class InitMessages(object):
         self.fail_time = 2  # 打开网页失败几次不再打开
         self.timeout = 3  # 打开网页设置几秒为超时
         self.step = 500  # 设置爬了step个QQ以后进行备份
-        self.qqbitset = BitVector.BitVector(size=3500000000)  # 用35亿个位作判重
-        self.init_qqbitset()
+        # self.qqbitset = BitVector.BitVector(size=3500000000)  # 用35亿个位作判重
+        # self.init_qqbitset()
+
+        print self.my_qq
         if len(self.my_qq) == 0:
+
             print('QQ账号都没有cookie，请先获取cookie！')
 
     def readMyQQ(self, file_dir="./myQQ.txt"):
@@ -40,6 +44,7 @@ class InitMessages(object):
             uin['no'] = line[0]
             uin['psw'] = line[1]
             qqlist.append(uin)
+            print qqlist
         f.close()
         return qqlist
 
